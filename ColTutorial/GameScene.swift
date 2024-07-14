@@ -39,6 +39,8 @@ final class GameScene: SKScene {
         board.gems[Vector(x: 3, y: 13)] = .green
         board.gems[Vector(x: 0, y: 0)] = .red
         board.gems[Vector(x: 0, y: 5)] = .blue
+        board.gems[Vector(x: 2, y: 10)] = .yellow
+        board.gems[Vector(x: 4, y: 7)] = .purple
         
         drawBoard()
     }
@@ -63,8 +65,9 @@ final class GameScene: SKScene {
         for gem in board.gems {
             let position = CGPoint(x: Double(gem.key.x) * spriteSize, y: Double(gem.key.y) * spriteSize) + offset + CGPoint(x: spriteSize / 2.0, y: spriteSize / 2.0)
             
-            let gemShape = SKShapeNode(circleOfRadius: spriteSize / 2.0)
-            gemShape.fillColor = gem.value.color
+            let gemShape = SKSpriteNode(imageNamed: gem.value.rawValue)
+            //let gemShape = SKShapeNode(circleOfRadius: spriteSize / 2.0)
+//            gemShape.fillColor = gem.value.color
             gemShape.position = position
             rootNode.addChild(gemShape)
         }
@@ -74,22 +77,5 @@ final class GameScene: SKScene {
 extension CGPoint {
     static func +(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
         CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
-    }
-}
-
-extension Gem {
-    var color: SKColor {
-        switch self {
-        case .red:
-                .red
-        case .green:
-                .green
-        case .blue:
-                .blue
-        case .yellow:
-                .yellow
-        case .purple:
-                .purple
-        }
     }
 }

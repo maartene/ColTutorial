@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Gem {
+enum Gem: String {
     case red
     case green
     case blue

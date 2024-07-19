@@ -31,4 +31,41 @@ final class BoardTests: XCTestCase {
         XCTAssertEqual(updatedBoard[Vector(x: 3, y: 0)], .green)
         XCTAssertNil(updatedBoard[Vector(x: 3, y: -1)])
     }
+    
+    // MARK: Spawning new gems
+    func test_aNewGem_spawnsWhenUpdatingANewBoard() {
+        let board = Board()
+        
+        let updatedBoard = board.update()
+        
+        XCTAssertGreaterThan(updatedBoard.gems.count, 0)
+    }
+    
+    func test_aNewGem_doesntSpawn_whenAnotherGemIsFalling() {
+        var board = Board()
+        board.gems[Vector(x: 0, y: 1)] = .red
+        
+        let updatedBoard = board.update()
+        
+        XCTAssertEqual(updatedBoard.gems.count, 1)
+    }
+    
+    func test_threeNewGems_spawn_whenUpdatingAStableBoard() {
+        var board = Board()
+        board.gems[Vector(x: 0, y: 0)] = .red
+        
+        let updatedBoard = board.update()
+        
+        XCTAssertEqual(updatedBoard.gems.count, 4)
+    }
+    
+    func test_threeNewGems_fall_as_a_stack() {
+        let board = Board().update()
+        
+        let updatedBoard = board.update()
+        
+        XCTAssertTrue(updatedBoard.gems[Vector(x: 3, y: 12)] != nil)
+        XCTAssertTrue(updatedBoard.gems[Vector(x: 3, y: 13)] != nil)
+        XCTAssertTrue(updatedBoard.gems[Vector(x: 3, y: 14)] != nil)
+    }
 }

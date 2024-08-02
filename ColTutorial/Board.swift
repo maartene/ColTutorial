@@ -21,11 +21,12 @@ struct Board {
 
     var gems = [Vector: Gem]()
     
+    var fallingStackBottom = Vector(x: 13, y: 3)
+    
     subscript(coord: Vector) -> Gem? {
         gems[coord]
     }
-    
-    
+
     func update() -> Board {
         var updatedBoard = self
         
@@ -34,9 +35,43 @@ struct Board {
         // spawn a new column
         if aGemHasFallen == false {
             updatedBoard.spawnNewGems()
+        } else {
+            updatedBoard.fallingStackBottom = fallingStackBottom + .down
         }
         
         return updatedBoard
+    }
+    
+    private func move(direction: Vector) -> Board {
+        var updatedBoard = self
+        
+        guard fallingStackBottom.x + direction.x >= 0 && fallingStackBottom.x + direction.x < colCount else {
+            return self
+        }
+        
+        guard self[fallingStackBottom + direction] == nil else {
+            return self
+        }
+        
+        updatedBoard.fallingStackBottom = fallingStackBottom + direction
+        
+        updatedBoard.gems[fallingStackBottom + direction] = self[fallingStackBottom]
+        updatedBoard.gems[fallingStackBottom + direction + .up] = self[fallingStackBottom + .up]
+        updatedBoard.gems[fallingStackBottom + direction + .up + .up] = self[fallingStackBottom + .up + .up]
+        
+        updatedBoard.gems[fallingStackBottom] = nil
+        updatedBoard.gems[fallingStackBottom + .up] = nil
+        updatedBoard.gems[fallingStackBottom + .up + .up] = nil
+        
+        return updatedBoard
+    }
+    
+    func right() -> Board {
+        move(direction: .right)
+    }
+    
+    func left() -> Board {
+        move(direction: .left)
     }
     
     private mutating func moveGemsDownWherePossible() -> Bool {
@@ -67,6 +102,7 @@ struct Board {
         gems[Vector(x: 3, y: 13)] = Gem.allCases.randomElement()!
         gems[Vector(x: 3, y: 14)] = Gem.allCases.randomElement()!
         gems[Vector(x: 3, y: 15)] = Gem.allCases.randomElement()!
+        
+        fallingStackBottom = Vector(x: 3, y: 13)
     }
-    
 }

@@ -10,8 +10,6 @@ import SpriteKit
 
 final class GameScene: SKScene {
     let spriteSize = 32.0
-    let colCount = 6
-    let rowCount = 13
     let updateInterval = 0.5
     
     var board = Board()
@@ -28,7 +26,7 @@ final class GameScene: SKScene {
         
         addChild(rootNode)
         
-        let field = SKShapeNode(rect: CGRect(x: 0, y: 0, width: spriteSize * Double(colCount), height: spriteSize *  Double(rowCount)))
+        let field = SKShapeNode(rect: CGRect(x: 0, y: 0, width: spriteSize * Double(board.colCount), height: spriteSize *  Double(board.rowCount)))
         field.strokeColor = .white
         field.fillColor = .darkGray
         offset = CGPoint(x: size.width / 2.0 - field.frame.size.width / 2.0, y: size.height - spriteSize - field.frame.size.height)
@@ -36,11 +34,7 @@ final class GameScene: SKScene {
         field.zPosition = -1
         addChild(field)
         
-        board.gems[Vector(x: 3, y: 13)] = .green
-        board.gems[Vector(x: 0, y: 0)] = .red
-        board.gems[Vector(x: 0, y: 5)] = .blue
-        board.gems[Vector(x: 2, y: 10)] = .yellow
-        board.gems[Vector(x: 4, y: 7)] = .purple
+        board.gems[Vector(x: 2, y: 1)] = .yellow
         
         drawBoard()
     }
@@ -66,8 +60,6 @@ final class GameScene: SKScene {
             let position = CGPoint(x: Double(gem.key.x) * spriteSize, y: Double(gem.key.y) * spriteSize) + offset + CGPoint(x: spriteSize / 2.0, y: spriteSize / 2.0)
             
             let gemShape = SKSpriteNode(imageNamed: gem.value.rawValue)
-            //let gemShape = SKShapeNode(circleOfRadius: spriteSize / 2.0)
-//            gemShape.fillColor = gem.value.color
             gemShape.position = position
             rootNode.addChild(gemShape)
         }

@@ -59,6 +59,10 @@ final class GameScene: SKScene {
         board = board.right()
     }
     
+    func cycle() {
+        board = board.cycle()
+    }
+    
     func drawBoard() {
         for child in rootNode.children {
             child.removeFromParent()

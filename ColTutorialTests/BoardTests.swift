@@ -174,11 +174,21 @@ final class BoardTests: XCTestCase {
         board.gems[Vector(x: 4, y: 4)] = .blue
         board.fallingStackBottom = Vector(x: 4, y: 2)
         
-        let shiftedBoard = board.left()
+        let shiftedBoard = board.right()
         
         // board didn't change
-        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 2)], board[Vector(x: 1, y: 2)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 3)], board[Vector(x: 1, y: 3)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 4)], board[Vector(x: 1, y: 4)])
+        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 2)], board[Vector(x: 4, y: 2)])
+        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 3)], board[Vector(x: 4, y: 3)])
+        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 4)], board[Vector(x: 4, y: 4)])
+    }
+    
+    func test_whenANewStackFalls_fallingStackBottom_isReset() {
+        var board = Board()
+        
+        while board.gems.count < 6 {
+            board = board.update()
+        }
+        
+        XCTAssertEqual(board.fallingStackBottom, Vector(x: 3, y: 13))
     }
 }

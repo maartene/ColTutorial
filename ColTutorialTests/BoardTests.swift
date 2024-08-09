@@ -70,20 +70,28 @@ final class BoardTests: XCTestCase {
     }
     
     // MARK: Control falling gems
+    private func compareStacks(board1: Board, stack1BottomGem: Vector, board2: Board, stack2BottomGem: Vector) {
+        XCTAssertEqual(board1[stack1BottomGem], board2[stack2BottomGem])
+        XCTAssertEqual(board1[stack1BottomGem + .up], board2[stack2BottomGem + .up])
+        XCTAssertEqual(board1[stack1BottomGem + .up + .up], board2[stack2BottomGem + .up + .up])
+    }
+    
+    private func compareStacksNil(board: Board, stackBottomGem: Vector) {
+        XCTAssertNil(board[stackBottomGem])
+        XCTAssertNil(board[stackBottomGem + .up])
+        XCTAssertNil(board[stackBottomGem + .up + .up])
+    }
+    
     func test_whenLeftIsCalled_fallingGems_areShiftedOneColumnLeft() {
         let board = Board().update()
         
         let shiftedBoard = board.left()
         
         // The gems colours should be the same in the shifted boards shifted position as in the original board
-        XCTAssertEqual(shiftedBoard[Vector(x: 2, y: 13)], board[Vector(x: 3, y: 13)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 2, y: 14)], board[Vector(x: 3, y: 14)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 2, y: 15)], board[Vector(x: 3, y: 15)])
+        compareStacks(board1: shiftedBoard, stack1BottomGem: Vector(x: 2, y: 13), board2: board, stack2BottomGem: Vector(x: 3, y: 13))
                    
         // The original positions in the shifted board should now be empty
-        XCTAssertNil(shiftedBoard[Vector(x: 3, y: 13)])
-        XCTAssertNil(shiftedBoard[Vector(x: 3, y: 14)])
-        XCTAssertNil(shiftedBoard[Vector(x: 3, y: 15)])
+        compareStacksNil(board: shiftedBoard, stackBottomGem: Vector(x: 3, y: 13))
     }
     
     func test_whenLeftIsCalled_fallingGems_notInOriginalPosition_areShiftedOneColumnLeft() {
@@ -92,14 +100,10 @@ final class BoardTests: XCTestCase {
         let shiftedBoard = board.left()
         
         // The gems colours should be the same in the shifted boards shifted position as in the original board
-        XCTAssertEqual(shiftedBoard[Vector(x: 2, y: 10)], board[Vector(x: 3, y: 10)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 2, y: 11)], board[Vector(x: 3, y: 11)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 2, y: 12)], board[Vector(x: 3, y: 12)])
+        compareStacks(board1: shiftedBoard, stack1BottomGem: Vector(x: 2, y: 10), board2: board, stack2BottomGem: Vector(x: 3, y: 10))
                    
         // The original positions in the shifted board should now be empty
-        XCTAssertNil(shiftedBoard[Vector(x: 3, y: 10)])
-        XCTAssertNil(shiftedBoard[Vector(x: 3, y: 11)])
-        XCTAssertNil(shiftedBoard[Vector(x: 3, y: 12)])
+        compareStacksNil(board: shiftedBoard, stackBottomGem: Vector(x: 3, y: 10))
     }
     
     func test_whenLeftIsCalled_fallingGems_thatAreInColumn0_dontMoveLeft() {
@@ -129,9 +133,7 @@ final class BoardTests: XCTestCase {
         let shiftedBoard = board.left()
         
         // board didn't change
-        XCTAssertEqual(shiftedBoard[Vector(x: 1, y: 2)], board[Vector(x: 1, y: 2)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 1, y: 3)], board[Vector(x: 1, y: 3)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 1, y: 4)], board[Vector(x: 1, y: 4)])
+        compareStacks(board1: shiftedBoard, stack1BottomGem: Vector(x: 1, y: 2), board2: board, stack2BottomGem: Vector(x: 1, y: 2))
     }
     
     func test_whenRightIsCalled_fallingGems_notInOriginalPosition_areShiftedOneColumnRight() {
@@ -140,14 +142,10 @@ final class BoardTests: XCTestCase {
         let shiftedBoard = board.right()
         
         // The gems colours should be the same in the shifted boards shifted position as in the original board
-        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 10)], board[Vector(x: 3, y: 10)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 11)], board[Vector(x: 3, y: 11)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 12)], board[Vector(x: 3, y: 12)])
+        compareStacks(board1: shiftedBoard, stack1BottomGem: Vector(x: 4, y: 10), board2: board, stack2BottomGem: Vector(x: 3, y: 10))
                    
         // The original positions in the shifted board should now be empty
-        XCTAssertNil(shiftedBoard[Vector(x: 3, y: 10)])
-        XCTAssertNil(shiftedBoard[Vector(x: 3, y: 11)])
-        XCTAssertNil(shiftedBoard[Vector(x: 3, y: 12)])
+        compareStacksNil(board: shiftedBoard, stackBottomGem: Vector(x: 3, y: 10))
     }
     
     func test_whenRightIsCalled_fallingGems_thatAreInColumn5_dontMoveRight() {
@@ -177,9 +175,7 @@ final class BoardTests: XCTestCase {
         let shiftedBoard = board.right()
         
         // board didn't change
-        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 2)], board[Vector(x: 4, y: 2)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 3)], board[Vector(x: 4, y: 3)])
-        XCTAssertEqual(shiftedBoard[Vector(x: 4, y: 4)], board[Vector(x: 4, y: 4)])
+        compareStacks(board1: shiftedBoard, stack1BottomGem: Vector(x: 4, y: 2), board2: board, stack2BottomGem: Vector(x: 4, y: 2))
     }
     
     func test_whenANewStackFalls_fallingStackBottom_isReset() {
@@ -190,5 +186,55 @@ final class BoardTests: XCTestCase {
         }
         
         XCTAssertEqual(board.fallingStackBottom, Vector(x: 3, y: 13))
+    }
+    
+    func test_cycle() {
+        let board = Board().update()
+        guard let originalGem1 = board[board.fallingStackBottom],
+              let originalGem2 = board[board.fallingStackBottom + .up],
+              let originalGem3 = board[board.fallingStackBottom + .up + .up]
+        else {
+            XCTFail("Expected to find three gems.")
+            return
+        }
+        
+        let cycledBoard = board.cycle()
+        
+        guard let cycledGem1 = cycledBoard[board.fallingStackBottom],
+              let cycledGem2 = cycledBoard[board.fallingStackBottom + .up],
+              let cycledGem3 = cycledBoard[board.fallingStackBottom + .up + .up]
+        else {
+            XCTFail("Expected to find three gems.")
+            return
+        }
+        
+        XCTAssertEqual(cycledGem1, originalGem2)
+        XCTAssertEqual(cycledGem2, originalGem3)
+        XCTAssertEqual(cycledGem3, originalGem1)
+    }
+    
+    func test_afterCyclingThreeTimes_wereBackToStart() {
+        let board = Board().update()
+        guard let originalGem1 = board[board.fallingStackBottom],
+              let originalGem2 = board[board.fallingStackBottom + .up],
+              let originalGem3 = board[board.fallingStackBottom + .up + .up]
+        else {
+            XCTFail("Expected to find three gems.")
+            return
+        }
+        
+        let cycledBoard = board.cycle().cycle().cycle()
+        
+        guard let cycledGem1 = cycledBoard[board.fallingStackBottom],
+              let cycledGem2 = cycledBoard[board.fallingStackBottom + .up],
+              let cycledGem3 = cycledBoard[board.fallingStackBottom + .up + .up]
+        else {
+            XCTFail("Expected to find three gems.")
+            return
+        }
+        
+        XCTAssertEqual(cycledGem1, originalGem1)
+        XCTAssertEqual(cycledGem2, originalGem2)
+        XCTAssertEqual(cycledGem3, originalGem3)
     }
 }

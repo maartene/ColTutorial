@@ -28,7 +28,6 @@ struct ContentView: View {
                     .background(Color.secondary)
                     .clipShape(.capsule)
                     .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                    Spacer()
                     Button {
                         scene.right()
                     } label: {
@@ -42,10 +41,22 @@ struct ContentView: View {
                     .clipShape(.capsule)
                     .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 }
+                
+                Button {
+                    scene.cycle()
+                } label: {
+                    Image(systemName: "arrow.circlepath")
+                    Text("Cycle")
+                }
+                .foregroundColor(.accentColor)
                 .padding()
-                .font(.largeTitle)
+                .background(Color.secondary)
+                .clipShape(.capsule)
+                .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 Text("").padding()
             }
+            .padding()                
+            .font(.largeTitle)
             
         }
     }

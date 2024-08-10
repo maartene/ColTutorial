@@ -53,14 +53,17 @@ final class GameScene: SKScene {
     
     func left() {
         board = board.left()
+        drawBoard()
     }
     
     func right() {
         board = board.right()
+        drawBoard()
     }
     
     func cycle() {
         board = board.cycle()
+        drawBoard()
     }
     
     func drawBoard() {

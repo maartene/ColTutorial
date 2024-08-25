@@ -74,6 +74,16 @@ struct Board {
         move(direction: .left)
     }
     
+    func cycle() -> Board {
+        var updatedBoard = self
+        
+        updatedBoard.gems[fallingStackBottom] = self[fallingStackBottom + .up]
+        updatedBoard.gems[fallingStackBottom + .up] = self[fallingStackBottom + .up + .up]
+        updatedBoard.gems[fallingStackBottom + .up + .up] = self[fallingStackBottom]
+        
+        return updatedBoard
+    }
+    
     private mutating func moveGemsDownWherePossible() -> Bool {
         var aGemHasFallen = false
         

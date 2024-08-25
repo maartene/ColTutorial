@@ -32,8 +32,14 @@ struct Board {
         
         let aGemHasFallen = updatedBoard.moveGemsDownWherePossible()
         
+        // find matches
+        let matches = updatedBoard.findMatches()
+        for match in matches {
+            updatedBoard.gems.removeValue(forKey: match)
+        }
+        
         // spawn a new column
-        if aGemHasFallen == false {
+        if aGemHasFallen == false && matches.count == 0 {
             updatedBoard.spawnNewGems()
         } else {
             updatedBoard.fallingStackBottom = fallingStackBottom + .down
@@ -114,5 +120,54 @@ struct Board {
         gems[Vector(x: 3, y: 15)] = Gem.allCases.randomElement()!
         
         fallingStackBottom = Vector(x: 3, y: 13)
+    }
+    
+    // MARK: Find matches
+    func findMatches() -> Set<Vector> {
+        var result = findHorizontalMatches()
+        result.formUnion(findVerticalMatches())
+        return result
+    }
+    
+    func findHorizontalMatches() -> Set<Vector> {
+        var result = Set<Vector>()
+        for y in 0 ..< rowCount {
+            for x in 0 ..< colCount {
+                let coord = Vector(x: x, y: y)
+                if let gem = gems[coord] {
+                    var dx = 1
+                    var matchSequence: Set<Vector> = [coord]
+                    while gem == gems[coord + Vector(x: dx, y: 0)] {
+                        matchSequence.insert(coord + Vector(x: dx, y: 0))
+                        dx += 1
+                    }
+                    if matchSequence.count >= 3 {
+                        result.formUnion(matchSequence)
+                    }
+                }
+            }
+        }
+        return result
+    }
+    
+    func findVerticalMatches() -> Set<Vector> {
+        var result = Set<Vector>()
+        for y in 0 ..< rowCount {
+            for x in 0 ..< colCount {
+                let coord = Vector(x: x, y: y)
+                if let gem = gems[coord] {
+                    var dy = 1
+                    var matchSequence: Set<Vector> = [coord]
+                    while gem == gems[coord + Vector(x: 0, y: dy)] {
+                        matchSequence.insert(coord + Vector(x: 0, y: dy))
+                        dy += 1
+                    }
+                    if matchSequence.count >= 3 {
+                        result.formUnion(matchSequence)
+                    }
+                }
+            }
+        }
+        return result
     }
 }

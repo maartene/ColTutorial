@@ -107,6 +107,7 @@ final class DetectMatchesTests: XCTestCase {
         XCTAssertTrue(result.contains(Vector(x: 0, y: 4)))
     }
     
+    // MARK: When matches are detected...
     func test_afterDetectingMatches_matchedGemsAreRemoved() {
         var board = Board()
         board.gems[Vector(x: 0, y: 0)] = .purple
@@ -117,8 +118,22 @@ final class DetectMatchesTests: XCTestCase {
         
         let updatedBoard = board.update()
         
+        XCTAssertNil(updatedBoard[Vector(x: 0, y: 1)])
+        XCTAssertNil(updatedBoard[Vector(x: 0, y: 2)])
+        XCTAssertNil(updatedBoard[Vector(x: 0, y: 3)])
+        XCTAssertNil(updatedBoard[Vector(x: 0, y: 4)])
+    }
+    
+    func test_afterDetectingMatches_noNewGemsAreSpawned() {
+        var board = Board()
+        board.gems[Vector(x: 0, y: 0)] = .purple
+        board.gems[Vector(x: 0, y: 1)] = .green
+        board.gems[Vector(x: 0, y: 2)] = .green
+        board.gems[Vector(x: 0, y: 3)] = .green
+        
+        let updatedBoard = board.update()
+        
         XCTAssertEqual(updatedBoard.gems.count, 1)
-        XCTAssertEqual(updatedBoard[Vector(x: 0, y: 0)], .purple)
     }
     
 }

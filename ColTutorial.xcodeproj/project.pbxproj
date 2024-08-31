@@ -18,6 +18,7 @@
 		DE9DE08C2C43F1EA00A778F5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE08B2C43F1EA00A778F5 /* Board.swift */; };
 		DE9DE08E2C43F22100A778F5 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE08D2C43F22100A778F5 /* Vector.swift */; };
 		DE9DE0902C43FA5F00A778F5 /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE08F2C43FA5F00A778F5 /* BoardTests.swift */; };
+		DEC6B45C2C7B56DA003C9D7A /* DetectMatchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC6B45B2C7B56DA003C9D7A /* DetectMatchesTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		DE9DE08B2C43F1EA00A778F5 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		DE9DE08D2C43F22100A778F5 /* Vector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
 		DE9DE08F2C43FA5F00A778F5 /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
+		DEC6B45B2C7B56DA003C9D7A /* DetectMatchesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectMatchesTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 			children = (
 				DE9DE0702C43EE8900A778F5 /* ColTutorialTests.swift */,
 				DE9DE08F2C43FA5F00A778F5 /* BoardTests.swift */,
+				DEC6B45B2C7B56DA003C9D7A /* DetectMatchesTests.swift */,
 			);
 			path = ColTutorialTests;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEC6B45C2C7B56DA003C9D7A /* DetectMatchesTests.swift in Sources */,
 				DE9DE0902C43FA5F00A778F5 /* BoardTests.swift in Sources */,
 				DE9DE0712C43EE8900A778F5 /* ColTutorialTests.swift in Sources */,
 			);

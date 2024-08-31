@@ -49,8 +49,8 @@ final class GameScene: SKScene {
             updateDelayRemaining = updateInterval
             
             for removedGem in board.matches {
-                if let gib = SKNode(fileNamed: "\(removedGem.value.rawValue).sks") {
-                    let position = CGPoint(x: Double(removedGem.key.x) * spriteSize, y: Double(removedGem.key.y) * spriteSize) + offset + CGPoint(x: spriteSize / 2.0, y: spriteSize / 2.0)
+                if let gib = SKNode(fileNamed: "\(removedGem.gem.rawValue).sks") {
+                    let position = CGPoint(x: Double(removedGem.pos.x) * spriteSize, y: Double(removedGem.pos.y) * spriteSize) + offset + CGPoint(x: spriteSize / 2.0, y: spriteSize / 2.0)
                     gib.position = position
                     gib.run(.sequence([.wait(forDuration: 0.5), .removeFromParent()]))
                     print("Creating gib at position: \(position), updateCount: \(updateCount)")

@@ -15,12 +15,19 @@ enum Gem: String, CaseIterable {
     case purple
 }
 
+struct VectorGem {
+    let pos: Vector
+    let gem: Gem
+}
+
+extension VectorGem: Hashable { }
+
 struct Board {
     let colCount = 6
     let rowCount = 13
 
     var gems = [Vector: Gem]()
-    var matches = [Vector: Gem]()
+    var matches = Set<VectorGem>()
     var fallingStackBottom = Vector(x: 13, y: 3)
     
     subscript(coord: Vector) -> Gem? {
@@ -35,7 +42,7 @@ struct Board {
         // find matches
         updatedBoard.matches = updatedBoard.findMatches()
         for match in updatedBoard.matches {
-            updatedBoard.gems.removeValue(forKey: match.key)
+            updatedBoard.gems.removeValue(forKey: match.pos)
         }
         
         // spawn a new column
@@ -123,8 +130,8 @@ struct Board {
     }
     
     // MARK: Find matches
-    func findMatches() -> [Vector: Gem] {
-        var result = [Vector: Gem]()
+    func findMatches() -> Set<VectorGem> {
+        var result = Set<VectorGem>()
         
         let directions = [
             Vector.right,
@@ -137,9 +144,7 @@ struct Board {
             for x in 0 ..< colCount {
                 let coord = Vector(x: x, y: y)
                 for direction in directions {
-                    result.merge(findMatches(startingAt: coord, direction: direction)) { gem, _ in
-                        gem
-                    }
+                    result.formUnion(findMatches(startingAt: coord, direction: direction))
                 }
             }
         }
@@ -147,17 +152,17 @@ struct Board {
         return result
     }
     
-    func findMatches(startingAt coord: Vector, direction: Vector) -> [Vector: Gem] {
-        var result = [Vector: Gem]()
+    func findMatches(startingAt coord: Vector, direction: Vector) -> Set<VectorGem> {
+        var result = Set<VectorGem>()
         if let gem = gems[coord] {
             var d = 1
-            var matchSequence: [Vector: Gem] = [coord: gem]
+            var matchSequence: Set<VectorGem> = [VectorGem(pos: coord, gem: gem)]
             while gem == gems[coord + direction * d] {
-                matchSequence[coord + direction * d] = gem
+                matchSequence.insert(VectorGem(pos: coord + direction * d, gem: gem))
                 d += 1
             }
             if matchSequence.count >= 3 {
-                result.merge(matchSequence) { gem, _ in gem }
+                result.formUnion(matchSequence)
             }
         }
         return result

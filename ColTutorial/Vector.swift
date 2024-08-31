@@ -17,10 +17,6 @@ extension Vector {
     static func +(lhs: Vector, rhs: Vector) -> Vector {
         Vector(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
     }
-    
-    static func *(v: Vector, scalar: Int) -> Vector {
-        Vector(x: v.x * scalar, y: v.y * scalar)
-    }
 }
 
 // MARK: Basic values

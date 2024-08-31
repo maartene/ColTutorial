@@ -155,11 +155,11 @@ struct Board {
     func findMatches(startingAt coord: Vector, direction: Vector) -> Set<VectorGem> {
         var result = Set<VectorGem>()
         if let gem = gems[coord] {
-            var d = 1
+            var delta = direction
             var matchSequence: Set<VectorGem> = [VectorGem(pos: coord, gem: gem)]
-            while gem == gems[coord + direction * d] {
-                matchSequence.insert(VectorGem(pos: coord + direction * d, gem: gem))
-                d += 1
+            while gem == gems[coord + delta] {
+                matchSequence.insert(VectorGem(pos: coord + delta, gem: gem))
+                delta = delta + direction
             }
             if matchSequence.count >= 3 {
                 result.formUnion(matchSequence)

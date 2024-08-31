@@ -28,9 +28,9 @@ final class DetectMatchesTests: XCTestCase {
         board.gems[Vector(x: 3, y: 0)] = .green
         
         let result = board.findMatches()
-        XCTAssertTrue(result.contains(Vector(x: 1, y: 0)))
-        XCTAssertTrue(result.contains(Vector(x: 2, y: 0)))
-        XCTAssertTrue(result.contains(Vector(x: 3, y: 0)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 1, y: 0)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 2, y: 0)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 3, y: 0)))
     }
     
     func test_detectHorizontalMatch3_returnsNoCoords_ifNothingMatched() {
@@ -51,10 +51,10 @@ final class DetectMatchesTests: XCTestCase {
         board.gems[Vector(x: 4, y: 0)] = .green
         
         let result = board.findMatches()
-        XCTAssertTrue(result.contains(Vector(x: 1, y: 0)))
-        XCTAssertTrue(result.contains(Vector(x: 2, y: 0)))
-        XCTAssertTrue(result.contains(Vector(x: 3, y: 0)))
-        XCTAssertTrue(result.contains(Vector(x: 4, y: 0)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 1, y: 0)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 2, y: 0)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 3, y: 0)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 4, y: 0)))
     }
     
     // MARK: Vertical
@@ -76,9 +76,9 @@ final class DetectMatchesTests: XCTestCase {
         board.gems[Vector(x: 0, y: 3)] = .green
         
         let result = board.findMatches()
-        XCTAssertTrue(result.contains(Vector(x: 0, y: 1)))
-        XCTAssertTrue(result.contains(Vector(x: 0, y: 2)))
-        XCTAssertTrue(result.contains(Vector(x: 0, y: 3)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 0, y: 1)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 0, y: 2)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 0, y: 3)))
     }
     
     func test_detectVerticalMatch3_returnsNoCoords_ifNothingMatched() {
@@ -101,10 +101,42 @@ final class DetectMatchesTests: XCTestCase {
         board.gems[Vector(x: 0, y: 4)] = .green
         
         let result = board.findMatches()
-        XCTAssertTrue(result.contains(Vector(x: 0, y: 1)))
-        XCTAssertTrue(result.contains(Vector(x: 0, y: 2)))
-        XCTAssertTrue(result.contains(Vector(x: 0, y: 3)))
-        XCTAssertTrue(result.contains(Vector(x: 0, y: 4)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 0, y: 1)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 0, y: 2)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 0, y: 3)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 0, y: 4)))
+    }
+    
+    // MARK: Diagonal right/up
+    func test_detectDiagonalUpMatch_returnsCoordsOfMatchingGems() {
+        var board = Board()
+        board.gems[Vector(x: 1, y: 0)] = .green
+        board.gems[Vector(x: 2, y: 0)] = .red
+        board.gems[Vector(x: 2, y: 1)] = .green
+        board.gems[Vector(x: 3, y: 0)] = .blue
+        board.gems[Vector(x: 3, y: 1)] = .purple
+        board.gems[Vector(x: 3, y: 2)] = .green
+        
+        let result = board.findMatches()
+        XCTAssertTrue(result.keys.contains(Vector(x: 1, y: 0)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 2, y: 1)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 3, y: 2)))
+    }
+    
+    func test_detectDiagonalDownMatch_returnsCoordsOfMatchingGems() {
+        var board = Board()
+        board.gems[Vector(x: 1, y: 0)] = .blue
+        board.gems[Vector(x: 1, y: 1)] = .purple
+        board.gems[Vector(x: 1, y: 2)] = .green
+        board.gems[Vector(x: 2, y: 0)] = .red
+        board.gems[Vector(x: 2, y: 1)] = .green
+        board.gems[Vector(x: 3, y: 0)] = .green
+        
+        let result = board.findMatches()
+        XCTAssertTrue(result.keys.contains(Vector(x: 1, y: 2)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 2, y: 1)))
+        XCTAssertTrue(result.keys.contains(Vector(x: 3, y: 0)))
+
     }
     
     // MARK: When matches are detected...
@@ -134,6 +166,47 @@ final class DetectMatchesTests: XCTestCase {
         let updatedBoard = board.update()
         
         XCTAssertEqual(updatedBoard.gems.count, 1)
+    }
+    
+    // MARK: Matches stored in board
+    func test_matchesAreStoredInBoard() {
+        var board = Board()
+        board.gems[Vector(x: 0, y: 0)] = .purple
+        board.gems[Vector(x: 0, y: 1)] = .green
+        board.gems[Vector(x: 0, y: 2)] = .green
+        board.gems[Vector(x: 0, y: 3)] = .green
+        
+        let updatedBoard = board.update()
+        
+        XCTAssertTrue(updatedBoard.matches.keys.contains(Vector(x: 0, y: 1)))
+        XCTAssertTrue(updatedBoard.matches.keys.contains(Vector(x: 0, y: 2)))
+        XCTAssertTrue(updatedBoard.matches.keys.contains(Vector(x: 0, y: 3)))
+    }
+    
+    func test_matchesAreRemovedAtSecondUpdate() {
+        var board = Board()
+        board.gems[Vector(x: 0, y: 0)] = .purple
+        board.gems[Vector(x: 0, y: 1)] = .green
+        board.gems[Vector(x: 0, y: 2)] = .green
+        board.gems[Vector(x: 0, y: 3)] = .green
+        
+        let updatedBoard = board.update().update()
+        
+        XCTAssertTrue(updatedBoard.matches.isEmpty)
+    }
+    
+    func test_matchesContainsColourOfGem() {
+        var board = Board()
+        board.gems[Vector(x: 0, y: 0)] = .purple
+        board.gems[Vector(x: 0, y: 1)] = .green
+        board.gems[Vector(x: 0, y: 2)] = .green
+        board.gems[Vector(x: 0, y: 3)] = .green
+        
+        let updatedBoard = board.update()
+        
+        for match in updatedBoard.matches {
+            XCTAssertEqual(match.value, .green)
+        }
     }
     
 }

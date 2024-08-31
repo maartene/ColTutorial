@@ -19,6 +19,7 @@ final class GameScene: SKScene {
     
     var lastUpdateTime: TimeInterval = 0
     var updateDelayRemaining: TimeInterval = 0
+    var updateCount = 0
     
     override func didMove(to view: SKView) {
         scaleMode = .aspectFit
@@ -34,8 +35,6 @@ final class GameScene: SKScene {
         field.zPosition = -1
         addChild(field)
         
-        board.gems[Vector(x: 2, y: 1)] = .yellow
-        
         drawBoard()
     }
     
@@ -48,6 +47,18 @@ final class GameScene: SKScene {
             board = board.update()
             drawBoard()
             updateDelayRemaining = updateInterval
+            
+            for removedGem in board.matches {
+                if let gib = SKNode(fileNamed: "\(removedGem.value.rawValue).sks") {
+                    let position = CGPoint(x: Double(removedGem.key.x) * spriteSize, y: Double(removedGem.key.y) * spriteSize) + offset + CGPoint(x: spriteSize / 2.0, y: spriteSize / 2.0)
+                    gib.position = position
+                    gib.run(.sequence([.wait(forDuration: 0.5), .removeFromParent()]))
+                    print("Creating gib at position: \(position), updateCount: \(updateCount)")
+                    rootNode.addChild(gib)
+                }
+                
+            }
+            
         }
     }
     
@@ -67,6 +78,7 @@ final class GameScene: SKScene {
     }
     
     func drawBoard() {
+        updateCount += 1
         for child in rootNode.children {
             child.removeFromParent()
         }

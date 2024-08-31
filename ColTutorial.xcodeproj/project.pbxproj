@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE53D61D2C83159B000EA022 /* blue.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE53D6192C83159A000EA022 /* blue.sks */; };
+		DE53D61E2C83159B000EA022 /* purple.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE53D61A2C83159A000EA022 /* purple.sks */; };
+		DE53D61F2C83159B000EA022 /* green.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE53D61B2C83159A000EA022 /* green.sks */; };
+		DE53D6202C83159B000EA022 /* yellow.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE53D61C2C83159A000EA022 /* yellow.sks */; };
 		DE9DE0602C43EE8800A778F5 /* ColTutorialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE05F2C43EE8800A778F5 /* ColTutorialApp.swift */; };
 		DE9DE0622C43EE8800A778F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE0612C43EE8800A778F5 /* ContentView.swift */; };
 		DE9DE0642C43EE8900A778F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE9DE0632C43EE8900A778F5 /* Assets.xcassets */; };
@@ -18,6 +22,7 @@
 		DE9DE08C2C43F1EA00A778F5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE08B2C43F1EA00A778F5 /* Board.swift */; };
 		DE9DE08E2C43F22100A778F5 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE08D2C43F22100A778F5 /* Vector.swift */; };
 		DE9DE0902C43FA5F00A778F5 /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE08F2C43FA5F00A778F5 /* BoardTests.swift */; };
+		DEBAAEBA2C8314FA0014FDFB /* red.sks in Resources */ = {isa = PBXBuildFile; fileRef = DEBAAEB92C8314FA0014FDFB /* red.sks */; };
 		DEC6B45C2C7B56DA003C9D7A /* DetectMatchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC6B45B2C7B56DA003C9D7A /* DetectMatchesTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE53D6192C83159A000EA022 /* blue.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = blue.sks; sourceTree = "<group>"; };
+		DE53D61A2C83159A000EA022 /* purple.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = purple.sks; sourceTree = "<group>"; };
+		DE53D61B2C83159A000EA022 /* green.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = green.sks; sourceTree = "<group>"; };
+		DE53D61C2C83159A000EA022 /* yellow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = yellow.sks; sourceTree = "<group>"; };
 		DE9DE05C2C43EE8800A778F5 /* ColTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE9DE05F2C43EE8800A778F5 /* ColTutorialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColTutorialApp.swift; sourceTree = "<group>"; };
 		DE9DE0612C43EE8800A778F5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +62,7 @@
 		DE9DE08B2C43F1EA00A778F5 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		DE9DE08D2C43F22100A778F5 /* Vector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
 		DE9DE08F2C43FA5F00A778F5 /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
+		DEBAAEB92C8314FA0014FDFB /* red.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = red.sks; sourceTree = "<group>"; };
 		DEC6B45B2C7B56DA003C9D7A /* DetectMatchesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectMatchesTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +114,11 @@
 		DE9DE05E2C43EE8800A778F5 /* ColTutorial */ = {
 			isa = PBXGroup;
 			children = (
+				DEBAAEB92C8314FA0014FDFB /* red.sks */,
+				DE53D6192C83159A000EA022 /* blue.sks */,
+				DE53D61B2C83159A000EA022 /* green.sks */,
+				DE53D61A2C83159A000EA022 /* purple.sks */,
+				DE53D61C2C83159A000EA022 /* yellow.sks */,
 				DE9DE05F2C43EE8800A778F5 /* ColTutorialApp.swift */,
 				DE9DE0612C43EE8800A778F5 /* ContentView.swift */,
 				DE9DE0632C43EE8900A778F5 /* Assets.xcassets */,
@@ -247,7 +262,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE9DE0672C43EE8900A778F5 /* Preview Assets.xcassets in Resources */,
+				DE53D61E2C83159B000EA022 /* purple.sks in Resources */,
+				DE53D61D2C83159B000EA022 /* blue.sks in Resources */,
+				DE53D61F2C83159B000EA022 /* green.sks in Resources */,
 				DE9DE0642C43EE8900A778F5 /* Assets.xcassets in Resources */,
+				DEBAAEBA2C8314FA0014FDFB /* red.sks in Resources */,
+				DE53D6202C83159B000EA022 /* yellow.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

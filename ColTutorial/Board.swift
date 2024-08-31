@@ -124,48 +124,36 @@ struct Board {
     
     // MARK: Find matches
     func findMatches() -> Set<Vector> {
-        var result = findHorizontalMatches()
-        result.formUnion(findVerticalMatches())
-        return result
-    }
-    
-    func findHorizontalMatches() -> Set<Vector> {
         var result = Set<Vector>()
+        
+        let directions = [
+            Vector.right,
+            Vector.up
+        ]
+        
         for y in 0 ..< rowCount {
             for x in 0 ..< colCount {
                 let coord = Vector(x: x, y: y)
-                if let gem = gems[coord] {
-                    var dx = 1
-                    var matchSequence: Set<Vector> = [coord]
-                    while gem == gems[coord + Vector(x: dx, y: 0)] {
-                        matchSequence.insert(coord + Vector(x: dx, y: 0))
-                        dx += 1
-                    }
-                    if matchSequence.count >= 3 {
-                        result.formUnion(matchSequence)
-                    }
+                for direction in directions {
+                    result.formUnion(findMatches(startingAt: coord, direction: direction))
                 }
             }
         }
+        
         return result
     }
     
-    func findVerticalMatches() -> Set<Vector> {
+    func findMatches(startingAt coord: Vector, direction: Vector) -> Set<Vector> {
         var result = Set<Vector>()
-        for y in 0 ..< rowCount {
-            for x in 0 ..< colCount {
-                let coord = Vector(x: x, y: y)
-                if let gem = gems[coord] {
-                    var dy = 1
-                    var matchSequence: Set<Vector> = [coord]
-                    while gem == gems[coord + Vector(x: 0, y: dy)] {
-                        matchSequence.insert(coord + Vector(x: 0, y: dy))
-                        dy += 1
-                    }
-                    if matchSequence.count >= 3 {
-                        result.formUnion(matchSequence)
-                    }
-                }
+        if let gem = gems[coord] {
+            var d = 1
+            var matchSequence: Set<Vector> = [coord]
+            while gem == gems[coord + direction * d] {
+                matchSequence.insert(coord + direction * d)
+                d += 1
+            }
+            if matchSequence.count >= 3 {
+                result.formUnion(matchSequence)
             }
         }
         return result

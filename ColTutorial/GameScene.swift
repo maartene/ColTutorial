@@ -34,8 +34,6 @@ final class GameScene: SKScene {
         field.zPosition = -1
         addChild(field)
         
-        board.gems[Vector(x: 2, y: 1)] = .yellow
-        
         drawBoard()
     }
     
@@ -80,8 +78,8 @@ final class GameScene: SKScene {
         }
         
         for removedGem in board.matches {
-            if let gib = SKNode(fileNamed: "gemVanishes.sks") {
-                let position = CGPoint(x: Double(removedGem.x) * spriteSize, y: Double(removedGem.y) * spriteSize) + offset + CGPoint(x: spriteSize / 2.0, y: spriteSize / 2.0)
+            if let gib = SKNode(fileNamed: "\(removedGem.gem).sks") {
+                let position = CGPoint(x: Double(removedGem.pos.x) * spriteSize, y: Double(removedGem.pos.y) * spriteSize) + offset + CGPoint(x: spriteSize / 2.0, y: spriteSize / 2.0)
                 gib.position = position
                 gib.run(.sequence([.wait(forDuration: 0.5), .removeFromParent()]))
                 rootNode.addChild(gib)

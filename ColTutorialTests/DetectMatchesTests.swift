@@ -107,6 +107,39 @@ final class DetectMatchesTests: XCTestCase {
         XCTAssertTrue(result.contains(Vector(x: 0, y: 4)))
     }
     
+    // MARK: Diagonal cases
+    func test_detectDiagonalUpMatch_returnsCoordsOfMatchingGems() {
+        var board = Board()
+        board.gems[Vector(x: 1, y: 0)] = .green
+        board.gems[Vector(x: 2, y: 0)] = .red
+        board.gems[Vector(x: 2, y: 1)] = .green
+        board.gems[Vector(x: 3, y: 0)] = .blue
+        board.gems[Vector(x: 3, y: 1)] = .yellow
+        board.gems[Vector(x: 3, y: 2)] = .green
+        
+        let result = board.findMatches()
+        
+        XCTAssertTrue(result.contains(Vector(x: 1, y: 0)))
+        XCTAssertTrue(result.contains(Vector(x: 2, y: 1)))
+        XCTAssertTrue(result.contains(Vector(x: 3, y: 2)))
+    }
+    
+    func test_detectDiagonalDownMatch_returnsCoordsOfMatchingGems() {
+        var board = Board()
+        board.gems[Vector(x: 1, y: 0)] = .blue
+        board.gems[Vector(x: 1, y: 1)] = .yellow
+        board.gems[Vector(x: 1, y: 2)] = .green
+        board.gems[Vector(x: 2, y: 0)] = .purple
+        board.gems[Vector(x: 2, y: 1)] = .green
+        board.gems[Vector(x: 3, y: 0)] = .green
+        
+        let result = board.findMatches()
+        
+        XCTAssertTrue(result.contains(Vector(x: 1, y: 2)))
+        XCTAssertTrue(result.contains(Vector(x: 2, y: 1)))
+        XCTAssertTrue(result.contains(Vector(x: 3, y: 0)))
+    }
+    
     // MARK: When matches are detected...
     func test_afterDetectingMatches_matchedGemsAreRemoved() {
         var board = Board()
@@ -135,5 +168,21 @@ final class DetectMatchesTests: XCTestCase {
         
         XCTAssertEqual(updatedBoard.gems.count, 1)
     }
+    
+    func test_matchesAreStoredInBoard() {
+        var board = Board()
+        board.gems[Vector(x: 0, y: 0)] = .purple
+        board.gems[Vector(x: 0, y: 1)] = .green
+        board.gems[Vector(x: 0, y: 2)] = .green
+        board.gems[Vector(x: 0, y: 3)] = .green
+        
+        let updatedBoard = board.update()
+        let matchPositions = updatedBoard.matches
+        
+        XCTAssertTrue(matchPositions.contains(Vector(x: 0, y: 1)))
+        XCTAssertTrue(matchPositions.contains(Vector(x: 0, y: 2)))
+        XCTAssertTrue(matchPositions.contains(Vector(x: 0, y: 3)))
+    }
+    
     
 }

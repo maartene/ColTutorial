@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE961F6D2C898AFA007FCDA6 /* gemVanishes.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE961F6C2C898AFA007FCDA6 /* gemVanishes.sks */; };
 		DE9DE0602C43EE8800A778F5 /* ColTutorialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE05F2C43EE8800A778F5 /* ColTutorialApp.swift */; };
 		DE9DE0622C43EE8800A778F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE0612C43EE8800A778F5 /* ContentView.swift */; };
 		DE9DE0642C43EE8900A778F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE9DE0632C43EE8900A778F5 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE961F6C2C898AFA007FCDA6 /* gemVanishes.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = gemVanishes.sks; sourceTree = "<group>"; };
 		DE9DE05C2C43EE8800A778F5 /* ColTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE9DE05F2C43EE8800A778F5 /* ColTutorialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColTutorialApp.swift; sourceTree = "<group>"; };
 		DE9DE0612C43EE8800A778F5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				DE9DE0892C43EF6200A778F5 /* GameScene.swift */,
 				DE9DE08B2C43F1EA00A778F5 /* Board.swift */,
 				DE9DE08D2C43F22100A778F5 /* Vector.swift */,
+				DE961F6C2C898AFA007FCDA6 /* gemVanishes.sks */,
 			);
 			path = ColTutorial;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 			files = (
 				DE9DE0672C43EE8900A778F5 /* Preview Assets.xcassets in Resources */,
 				DE9DE0642C43EE8900A778F5 /* Assets.xcassets in Resources */,
+				DE961F6D2C898AFA007FCDA6 /* gemVanishes.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

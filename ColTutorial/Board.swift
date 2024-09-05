@@ -22,6 +22,7 @@ struct Board {
     var gems = [Vector: Gem]()
     
     var fallingStackBottom = Vector(x: 13, y: 3)
+    var matches: Set<Vector> = []
     
     subscript(coord: Vector) -> Gem? {
         gems[coord]
@@ -33,13 +34,13 @@ struct Board {
         let aGemHasFallen = updatedBoard.moveGemsDownWherePossible()
         
         // find matches
-        let matches = updatedBoard.findMatches()
-        for match in matches {
+        updatedBoard.matches = updatedBoard.findMatches()
+        for match in updatedBoard.matches {
             updatedBoard.gems.removeValue(forKey: match)
         }
         
         // spawn a new column
-        if aGemHasFallen == false && matches.count == 0 {
+        if aGemHasFallen == false && updatedBoard.matches.count == 0 {
             updatedBoard.spawnNewGems()
         } else {
             updatedBoard.fallingStackBottom = fallingStackBottom + .down
@@ -124,48 +125,38 @@ struct Board {
     
     // MARK: Find matches
     func findMatches() -> Set<Vector> {
-        var result = findHorizontalMatches()
-        result.formUnion(findVerticalMatches())
-        return result
-    }
-    
-    func findHorizontalMatches() -> Set<Vector> {
         var result = Set<Vector>()
+        
+        let directions = [
+            Vector.up,
+            Vector.right,
+            Vector.up + Vector.right,
+            Vector.down + Vector.right,
+        ]
+        
         for y in 0 ..< rowCount {
             for x in 0 ..< colCount {
                 let coord = Vector(x: x, y: y)
-                if let gem = gems[coord] {
-                    var dx = 1
-                    var matchSequence: Set<Vector> = [coord]
-                    while gem == gems[coord + Vector(x: dx, y: 0)] {
-                        matchSequence.insert(coord + Vector(x: dx, y: 0))
-                        dx += 1
-                    }
-                    if matchSequence.count >= 3 {
-                        result.formUnion(matchSequence)
-                    }
+                for direction in directions {
+                    result.formUnion(findMatches(startingAt: coord, direction: direction))
                 }
             }
         }
+        
         return result
     }
     
-    func findVerticalMatches() -> Set<Vector> {
+    func findMatches(startingAt coord: Vector, direction: Vector) -> Set<Vector> {
         var result = Set<Vector>()
-        for y in 0 ..< rowCount {
-            for x in 0 ..< colCount {
-                let coord = Vector(x: x, y: y)
-                if let gem = gems[coord] {
-                    var dy = 1
-                    var matchSequence: Set<Vector> = [coord]
-                    while gem == gems[coord + Vector(x: 0, y: dy)] {
-                        matchSequence.insert(coord + Vector(x: 0, y: dy))
-                        dy += 1
-                    }
-                    if matchSequence.count >= 3 {
-                        result.formUnion(matchSequence)
-                    }
-                }
+        if let gem = gems[coord] {
+            var delta = direction
+            var matchSequence: Set<Vector> = [coord]
+            while gem == gems[coord + delta] {
+                matchSequence.insert(coord + delta)
+                delta = delta + direction
+            }
+            if matchSequence.count >= 3 {
+                result.formUnion(matchSequence)
             }
         }
         return result

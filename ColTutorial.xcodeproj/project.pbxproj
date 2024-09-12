@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE430B6F2C8990F1004A7E21 /* red.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE430B6A2C8990F1004A7E21 /* red.sks */; };
+		DE430B702C8990F1004A7E21 /* blue.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE430B6B2C8990F1004A7E21 /* blue.sks */; };
+		DE430B712C8990F1004A7E21 /* green.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE430B6C2C8990F1004A7E21 /* green.sks */; };
+		DE430B722C8990F1004A7E21 /* purple.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE430B6D2C8990F1004A7E21 /* purple.sks */; };
+		DE430B732C8990F1004A7E21 /* yellow.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE430B6E2C8990F1004A7E21 /* yellow.sks */; };
 		DE961F6D2C898AFA007FCDA6 /* gemVanishes.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE961F6C2C898AFA007FCDA6 /* gemVanishes.sks */; };
 		DE9DE0602C43EE8800A778F5 /* ColTutorialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE05F2C43EE8800A778F5 /* ColTutorialApp.swift */; };
 		DE9DE0622C43EE8800A778F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE0612C43EE8800A778F5 /* ContentView.swift */; };
@@ -40,6 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE430B6A2C8990F1004A7E21 /* red.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = red.sks; sourceTree = "<group>"; };
+		DE430B6B2C8990F1004A7E21 /* blue.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = blue.sks; sourceTree = "<group>"; };
+		DE430B6C2C8990F1004A7E21 /* green.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = green.sks; sourceTree = "<group>"; };
+		DE430B6D2C8990F1004A7E21 /* purple.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = purple.sks; sourceTree = "<group>"; };
+		DE430B6E2C8990F1004A7E21 /* yellow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = yellow.sks; sourceTree = "<group>"; };
 		DE961F6C2C898AFA007FCDA6 /* gemVanishes.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = gemVanishes.sks; sourceTree = "<group>"; };
 		DE9DE05C2C43EE8800A778F5 /* ColTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE9DE05F2C43EE8800A778F5 /* ColTutorialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColTutorialApp.swift; sourceTree = "<group>"; };
@@ -106,6 +116,11 @@
 		DE9DE05E2C43EE8800A778F5 /* ColTutorial */ = {
 			isa = PBXGroup;
 			children = (
+				DE430B6B2C8990F1004A7E21 /* blue.sks */,
+				DE430B6C2C8990F1004A7E21 /* green.sks */,
+				DE430B6D2C8990F1004A7E21 /* purple.sks */,
+				DE430B6A2C8990F1004A7E21 /* red.sks */,
+				DE430B6E2C8990F1004A7E21 /* yellow.sks */,
 				DE9DE05F2C43EE8800A778F5 /* ColTutorialApp.swift */,
 				DE9DE0612C43EE8800A778F5 /* ContentView.swift */,
 				DE9DE0632C43EE8900A778F5 /* Assets.xcassets */,
@@ -250,6 +265,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE9DE0672C43EE8900A778F5 /* Preview Assets.xcassets in Resources */,
+				DE430B722C8990F1004A7E21 /* purple.sks in Resources */,
+				DE430B6F2C8990F1004A7E21 /* red.sks in Resources */,
+				DE430B702C8990F1004A7E21 /* blue.sks in Resources */,
+				DE430B712C8990F1004A7E21 /* green.sks in Resources */,
+				DE430B732C8990F1004A7E21 /* yellow.sks in Resources */,
 				DE9DE0642C43EE8900A778F5 /* Assets.xcassets in Resources */,
 				DE961F6D2C898AFA007FCDA6 /* gemVanishes.sks in Resources */,
 			);

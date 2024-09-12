@@ -15,6 +15,13 @@ enum Gem: String, CaseIterable {
     case purple
 }
 
+struct VectorGem {
+    let pos: Vector
+    let gem: Gem
+}
+
+extension VectorGem: Hashable { }
+
 struct Board {
     let colCount = 6
     let rowCount = 13
@@ -22,7 +29,7 @@ struct Board {
     var gems = [Vector: Gem]()
     
     var fallingStackBottom = Vector(x: 13, y: 3)
-    var matches: Set<Vector> = []
+    var matches: Set<VectorGem> = []
     
     subscript(coord: Vector) -> Gem? {
         gems[coord]
@@ -36,7 +43,7 @@ struct Board {
         // find matches
         updatedBoard.matches = updatedBoard.findMatches()
         for match in updatedBoard.matches {
-            updatedBoard.gems.removeValue(forKey: match)
+            updatedBoard.gems.removeValue(forKey: match.pos)
         }
         
         // spawn a new column
@@ -124,8 +131,8 @@ struct Board {
     }
     
     // MARK: Find matches
-    func findMatches() -> Set<Vector> {
-        var result = Set<Vector>()
+    func findMatches() -> Set<VectorGem> {
+        var result = Set<VectorGem>()
         
         let directions = [
             Vector.up,
@@ -146,13 +153,13 @@ struct Board {
         return result
     }
     
-    func findMatches(startingAt coord: Vector, direction: Vector) -> Set<Vector> {
-        var result = Set<Vector>()
+    func findMatches(startingAt coord: Vector, direction: Vector) -> Set<VectorGem> {
+        var result = Set<VectorGem>()
         if let gem = gems[coord] {
             var delta = direction
-            var matchSequence: Set<Vector> = [coord]
+            var matchSequence: Set<VectorGem> = [VectorGem(pos: coord, gem: gem)]
             while gem == gems[coord + delta] {
-                matchSequence.insert(coord + delta)
+                matchSequence.insert(VectorGem(pos: coord + delta, gem: gem))
                 delta = delta + direction
             }
             if matchSequence.count >= 3 {

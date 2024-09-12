@@ -53,14 +53,19 @@ struct Board {
             updatedBoard.gems.removeValue(forKey: match.pos)
         }
         
-        // spawn a new column
-        if aGemHasFallen == false && updatedBoard.matches.count == 0 {
-            if updatedBoard[Vector(x: 3, y: 13)] != nil {
-                updatedBoard.state = .loss
-            } else {
-                updatedBoard.spawnNewGems()
-            }
-        } else {
+        let matchesFound = updatedBoard.matches.count > 0
+        let boardIsStable = (aGemHasFallen == false) && (matchesFound == false)
+        let spawnPositionIsOccupied = updatedBoard[Vector(x: 3, y: 13)] != nil
+        
+        switch (boardIsStable, spawnPositionIsOccupied) {
+        case (true, false):
+            // board is stable, but not a loss -> spawn a new Gem
+            updatedBoard.spawnNewGems()
+        case (true, true):
+            // board is stable, and no space to spawn new gem -> loss
+            updatedBoard.state = .loss
+        case (false, _):
+            // board is not yet stable, just moving stuff down.
             updatedBoard.fallingStackBottom = fallingStackBottom + .down
         }
         

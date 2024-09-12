@@ -10,7 +10,7 @@ import SpriteKit
 
 final class GameScene: SKScene, ObservableObject {
     let spriteSize = 32.0
-    let updateInterval = 0.1
+    let updateInterval = 0.5
     
     var board = Board()
     var offset: CGPoint = .zero

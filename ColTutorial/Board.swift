@@ -23,13 +23,20 @@ struct VectorGem {
 extension VectorGem: Hashable { }
 
 struct Board {
+    enum BoardState {
+        case loss
+        case inProgress
+    }
+    
     let colCount = 6
     let rowCount = 13
 
     var gems = [Vector: Gem]()
     
-    var fallingStackBottom = Vector(x: 13, y: 3)
+    var fallingStackBottom = Vector(x: 3, y: 13)
     var matches: Set<VectorGem> = []
+    
+    var state = BoardState.inProgress
     
     subscript(coord: Vector) -> Gem? {
         gems[coord]
@@ -37,7 +44,7 @@ struct Board {
 
     func update() -> Board {
         var updatedBoard = self
-        
+                
         let aGemHasFallen = updatedBoard.moveGemsDownWherePossible()
         
         // find matches
@@ -48,15 +55,23 @@ struct Board {
         
         // spawn a new column
         if aGemHasFallen == false && updatedBoard.matches.count == 0 {
-            updatedBoard.spawnNewGems()
+            if updatedBoard[Vector(x: 3, y: 13)] != nil {
+                updatedBoard.state = .loss
+            } else {
+                updatedBoard.spawnNewGems()
+            }
         } else {
             updatedBoard.fallingStackBottom = fallingStackBottom + .down
         }
         
         return updatedBoard
     }
-    
+        
     private func move(direction: Vector) -> Board {
+        guard state == .inProgress else {
+            return self
+        }
+        
         var updatedBoard = self
         
         guard fallingStackBottom.x + direction.x >= 0 && fallingStackBottom.x + direction.x < colCount else {
@@ -89,6 +104,10 @@ struct Board {
     }
     
     func cycle() -> Board {
+        guard state == .inProgress else {
+            return self
+        }
+        
         var updatedBoard = self
         
         updatedBoard.gems[fallingStackBottom] = self[fallingStackBottom + .up]

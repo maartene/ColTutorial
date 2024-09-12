@@ -8,9 +8,9 @@
 import Foundation
 import SpriteKit
 
-final class GameScene: SKScene {
+final class GameScene: SKScene, ObservableObject {
     let spriteSize = 32.0
-    let updateInterval = 0.5
+    let updateInterval = 0.1
     
     var board = Board()
     var offset: CGPoint = .zero
@@ -19,6 +19,8 @@ final class GameScene: SKScene {
     
     var lastUpdateTime: TimeInterval = 0
     var updateDelayRemaining: TimeInterval = 0
+    
+    @Published var state = Board.BoardState.inProgress
     
     override func didMove(to view: SKView) {
         scaleMode = .aspectFit
@@ -46,6 +48,7 @@ final class GameScene: SKScene {
             board = board.update()
             drawBoard()
             updateDelayRemaining = updateInterval
+            state = board.state
         }
     }
     
@@ -85,6 +88,10 @@ final class GameScene: SKScene {
                 rootNode.addChild(gib)
             }
         }
+    }
+    
+    func reset() {
+        board = Board()
     }
 }
 

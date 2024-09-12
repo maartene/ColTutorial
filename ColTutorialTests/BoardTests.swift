@@ -237,4 +237,45 @@ final class BoardTests: XCTestCase {
         XCTAssertEqual(cycledGem2, originalGem2)
         XCTAssertEqual(cycledGem3, originalGem3)
     }
+    
+    // MARK: Win/lose conditions
+    func test_whenYouReachTheTopOfScreen_youLose() {
+        var board = Board()
+        for y in 0 ... board.rowCount {
+            board.gems[Vector(x: 3, y: y)] = Gem.allCases[y % Gem.allCases.count]
+        }
+        
+        let updatedBoard = board.update()
+        
+        XCTAssertEqual(updatedBoard.state, .loss)
+    }
+    
+    func test_whenAGameHasJustStarted_itIsInState_inProgress() {
+        let board = Board()
+        
+        let updatedBoard = board.update()
+        
+        XCTAssertEqual(updatedBoard.state, .inProgress)
+    }
+    
+    func test_whenAGameIsLost_youCannotControlGems() {
+        var board = Board()
+        for y in 0 ... board.rowCount {
+            board.gems[Vector(x: 3, y: y)] = Gem.allCases[y % Gem.allCases.count]
+        }
+        let lossBoard = board.update()
+        XCTAssertEqual(lossBoard.state, .loss)
+        
+        let leftBoard = lossBoard.left()
+        XCTAssertNil(leftBoard[Vector(x: 2, y: 13)])
+        XCTAssertNotNil(leftBoard[Vector(x: 3, y: 13)])
+        
+        let rightBoard = lossBoard.right()
+        XCTAssertNil(rightBoard[Vector(x: 4, y: 13)])
+        XCTAssertNotNil(rightBoard[Vector(x: 3, y: 13)])
+        
+        // Cycle
+        let cycledBoard = lossBoard.cycle()
+        XCTAssertEqual(cycledBoard[Vector(x: 3, y: 13)], lossBoard[Vector(x: 3, y: 13)])
+    }
 }

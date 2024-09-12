@@ -9,7 +9,7 @@ import SwiftUI
 import SpriteKit
 
 struct ContentView: View {
-    let scene = GameScene(size: CGSize(width: 375, height: 667))
+    @StateObject var scene = GameScene(size: CGSize(width: 375, height: 667))
     var body: some View {
         ZStack {
             SpriteView(scene: scene, options: [.ignoresSiblingOrder], debugOptions: [.showsDrawCount, .showsFPS, .showsNodeCount])
@@ -57,7 +57,18 @@ struct ContentView: View {
             }
             .padding()                
             .font(.largeTitle)
-            
+            if scene.state == .loss {
+                VStack {
+                    Text("State: \(scene.board.state)")
+                    Button("Try Again") {
+                        scene.reset()
+                    }
+                }
+                .font(.largeTitle)
+                .padding()
+                .background(Color.secondary)
+                .clipShape(.capsule)
+            }
         }
     }
 }

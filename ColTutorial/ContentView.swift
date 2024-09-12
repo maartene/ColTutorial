@@ -59,12 +59,14 @@ struct ContentView: View {
             .font(.largeTitle)
             if scene.state == .loss {
                 VStack {
-                    Text("State: \(scene.board.state)")
+                    Text("You lost!")
+                        .foregroundStyle(.white)
                     Button("Try Again") {
                         scene.reset()
                     }
                 }
                 .font(.largeTitle)
+                .padding()
                 .padding()
                 .background(Color.secondary)
                 .clipShape(.capsule)

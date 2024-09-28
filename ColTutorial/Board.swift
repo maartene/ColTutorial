@@ -23,13 +23,20 @@ struct VectorGem {
 extension VectorGem: Hashable { }
 
 struct Board {
+    enum BoardState {
+        case loss
+        case inProgress
+    }
+    
     let colCount = 6
     let rowCount = 13
 
     var gems = [Vector: Gem]()
     
-    var fallingStackBottom = Vector(x: 13, y: 3)
+    var fallingStackBottom = Vector(x: 3, y: 13)
     var matches: Set<VectorGem> = []
+    
+    var state = BoardState.inProgress
     
     subscript(coord: Vector) -> Gem? {
         gems[coord]
@@ -46,10 +53,19 @@ struct Board {
             updatedBoard.gems.removeValue(forKey: match.pos)
         }
         
-        // spawn a new column
-        if aGemHasFallen == false && updatedBoard.matches.count == 0 {
+        let matchesFound = updatedBoard.matches.count > 0
+        let boardIsStable = (aGemHasFallen == false) && (matchesFound == false)
+        let spawnPositionIsOccupied = updatedBoard.gems[Vector(x: 3, y: 13)] != nil
+        
+        switch (boardIsStable, spawnPositionIsOccupied) {
+        case (true, false):
+            // board is stable, but not a loss -> spawn a new set of gems
             updatedBoard.spawnNewGems()
-        } else {
+        case (true, true):
+            // board is stable, and no space for new gems -> loss
+            updatedBoard.state = .loss
+        case (false, _):
+            // board is not yet stable, just move stuff down
             updatedBoard.fallingStackBottom = fallingStackBottom + .down
         }
         
@@ -57,6 +73,10 @@ struct Board {
     }
     
     private func move(direction: Vector) -> Board {
+        guard state == .inProgress else {
+            return self
+        }
+        
         var updatedBoard = self
         
         guard fallingStackBottom.x + direction.x >= 0 && fallingStackBottom.x + direction.x < colCount else {
@@ -89,6 +109,10 @@ struct Board {
     }
     
     func cycle() -> Board {
+        guard state == .inProgress else {
+            return self
+        }
+        
         var updatedBoard = self
         
         updatedBoard.gems[fallingStackBottom] = self[fallingStackBottom + .up]

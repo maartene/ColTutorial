@@ -21,6 +21,7 @@ final class GameScene: SKScene, ObservableObject {
     var updateDelayRemaining: TimeInterval = 0
     
     @Published var state = Board.BoardState.inProgress
+    @Published var score: Int = 0
     
     override func didMove(to view: SKView) {
         scaleMode = .aspectFit
@@ -49,6 +50,7 @@ final class GameScene: SKScene, ObservableObject {
             drawBoard()
             updateDelayRemaining = updateInterval
             state = board.state
+            score = board.score
         }
     }
     
@@ -70,6 +72,7 @@ final class GameScene: SKScene, ObservableObject {
     func reset() {
         board = Board()
         state = board.state
+        score = board.score
         drawBoard()
     }
     

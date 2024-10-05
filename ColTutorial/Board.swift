@@ -37,6 +37,8 @@ struct Board {
     var matches: Set<VectorGem> = []
     
     var state = BoardState.inProgress
+    var score = 0
+    var comboMultiplier = 1
     
     subscript(coord: Vector) -> Gem? {
         gems[coord]
@@ -52,15 +54,18 @@ struct Board {
         for match in updatedBoard.matches {
             updatedBoard.gems.removeValue(forKey: match.pos)
         }
+        updatedBoard.updateScore()
         
+        // determine loss/continue/spawn
         let matchesFound = updatedBoard.matches.count > 0
         let boardIsStable = (aGemHasFallen == false) && (matchesFound == false)
         let spawnPositionIsOccupied = updatedBoard.gems[Vector(x: 3, y: 13)] != nil
         
         switch (boardIsStable, spawnPositionIsOccupied) {
         case (true, false):
-            // board is stable, but not a loss -> spawn a new set of gems
+            // board is stable, but not a loss -> spawn a new set of gems and reset combo multiplier
             updatedBoard.spawnNewGems()
+            updatedBoard.comboMultiplier = 1
         case (true, true):
             // board is stable, and no space for new gems -> loss
             updatedBoard.state = .loss
@@ -70,6 +75,13 @@ struct Board {
         }
         
         return updatedBoard
+    }
+    
+    private mutating func updateScore() {
+        score += matches.count * comboMultiplier
+        if matches.count >= 3 {
+            comboMultiplier += 5
+        }
     }
     
     private func move(direction: Vector) -> Board {

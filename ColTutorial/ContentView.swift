@@ -54,6 +54,10 @@ struct ContentView: View {
                 .clipShape(.capsule)
                 .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 Text("").padding()
+                
+                Text("Score: \(scene.score)")
+                    .foregroundStyle(.white)
+                
             }
             .padding()                
             .font(.largeTitle)

@@ -14,52 +14,23 @@ struct ContentView: View {
         ZStack {
             SpriteView(scene: scene, options: [.ignoresSiblingOrder], debugOptions: [.showsDrawCount, .showsFPS, .showsNodeCount])
                 .ignoresSafeArea()
+                .onTapGesture {
+                    scene.cycle()
+                }
+                .gesture(DragGesture().onEnded { value in
+                    if value.translation.width > 0 {
+                        scene.right()
+                    } else if value.translation.width < 0 {
+                        scene.left()
+                    }
+                })
             VStack {
                 Spacer()
-                HStack {
-                    Button {
-                        scene.left()
-                    } label: {
-                        Image(systemName: "arrowshape.left.fill")
-                        Text("Left  ")
-                    }
-                    .foregroundColor(.accentColor)
-                    .padding()
-                    .background(Color.secondary)
-                    .clipShape(.capsule)
-                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                    Button {
-                        scene.right()
-                    } label: {
-                        Text("Right")
-                        Image(systemName: "arrowshape.right.fill")
-                    }
-                    
-                    .foregroundColor(.accentColor)
-                    .padding()
-                    .background(Color.secondary)
-                    .clipShape(.capsule)
-                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                }
-                
-                Button {
-                    scene.cycle()
-                } label: {
-                    Image(systemName: "arrow.circlepath")
-                    Text("Cycle")
-                }
-                .foregroundColor(.accentColor)
-                .padding()
-                .background(Color.secondary)
-                .clipShape(.capsule)
-                .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                Text("").padding()
-                
                 Text("Score: \(scene.score)")
-                    .foregroundStyle(.white)
-                
+                Text("Level: ##")                
             }
-            .padding()                
+            .foregroundStyle(.white)
+            .padding()
             .font(.largeTitle)
             
             if scene.state == .loss {

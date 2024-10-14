@@ -27,7 +27,7 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 Text("Score: \(scene.score)")
-                Text("Level: ##")                
+                Text("Level: \(scene.level)")                
             }
             .foregroundStyle(.white)
             .padding()

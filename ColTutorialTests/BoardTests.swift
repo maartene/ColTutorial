@@ -381,4 +381,75 @@ final class BoardTests: XCTestCase {
         let updatedBoardAgain = updatedBoard.update()
         XCTAssertEqual(updatedBoardAgain.comboMultiplier, updatedBoard.comboMultiplier)        
     }
+    
+    // MARK: Levels
+    func test_aNewBoard_startsAtLevel1() {
+        let board = Board()
+        XCTAssertEqual(board.level, 1)
+    }
+    
+    func test_aNewBoard_hasASpawnCount_ofZero() {
+        let board = Board()
+        XCTAssertEqual(board.spawnCount, 0)
+    }
+    
+    func test_whenABoardReachesAMatchCount_of10_itIncreasesTheLevel() {
+        var board = Board()
+        board.spawnCount = 10
+        
+        let updatedBoard = board.update()
+        
+        XCTAssertGreaterThan(updatedBoard.level, board.level)
+    }
+    
+    func test_whenABoardLevelsUp_spawnCount_isReset() {
+        var board = Board()
+        board.spawnCount = 10
+        
+        let updatedBoard = board.update()
+        
+        XCTAssertLessThan(updatedBoard.spawnCount, board.spawnCount)
+    }
+    
+    func test_whenANewSetOfGemsIsSpawned_spawnCount_isIncremented() {
+        let board = Board()
+        
+        let updatedBoard = board.update()
+        
+        XCTAssertGreaterThan(updatedBoard.spawnCount, board.spawnCount)
+    }
+    
+    func test_makingAMatchAtAHigherLevel_increasesTheScoreMore_thanAtALowerLevel() {
+        var level1Board = Board()
+        level1Board.gems[Vector(x: 1, y: 0)] = .green
+        level1Board.gems[Vector(x: 2, y: 0)] = .green
+        level1Board.gems[Vector(x: 3, y: 0)] = .green
+        
+        var level2Board = level1Board
+        level2Board.level = 2
+        
+        XCTAssertGreaterThan(level2Board.update().score, level1Board.update().score)
+    }
+    
+    func test_aNewBoard_hasAnUpdateDelay_of_halfASecond() {
+        let board = Board()
+        
+        XCTAssertEqual(board.updateDelay, 0.5)
+    }
+    
+    func test_afterLevelingUp_theUpdateDelay_isReduced() {
+        let level1Board = Board()
+        var level2Board = level1Board
+        level2Board.level = 2
+        
+        XCTAssertLessThan(level2Board.updateDelay, level1Board.updateDelay)
+    }
+    
+    func test_updateDelay_neverGoesBelowZero() {
+        var board = Board()
+        
+        board.level = 1_000_000
+        
+        XCTAssertGreaterThanOrEqual(board.updateDelay, 0)
+    }
 }

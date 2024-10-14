@@ -40,10 +40,17 @@ struct Board {
     var score = 0
     var comboMultiplier = 1
     
+    var level = 1
+    var spawnCount = 0
+    var updateDelay: TimeInterval {
+        let result = 0.55 - Double(level) * 0.05
+        return max(0, result)
+    }
+    
     subscript(coord: Vector) -> Gem? {
         gems[coord]
     }
-
+    
     func update() -> Board {
         var updatedBoard = self
         
@@ -55,6 +62,9 @@ struct Board {
             updatedBoard.gems.removeValue(forKey: match.pos)
         }
         updatedBoard.updateScore()
+        
+        updatedBoard.updateLevel()
+        
         
         // determine loss/continue/spawn
         let matchesFound = updatedBoard.matches.count > 0
@@ -78,9 +88,17 @@ struct Board {
     }
     
     private mutating func updateScore() {
-        score += matches.count * comboMultiplier
+        score += matches.count * comboMultiplier * level
         if matches.count >= 3 {
             comboMultiplier += 5
+        }
+    }
+    
+    mutating private func updateLevel() {
+        // update level
+        if spawnCount >= 10 {
+            level += 1
+            spawnCount = 0
         }
     }
     
@@ -164,6 +182,7 @@ struct Board {
         gems[Vector(x: 3, y: 15)] = Gem.allCases.randomElement()!
         
         fallingStackBottom = Vector(x: 3, y: 13)
+        spawnCount += 1
     }
     
     // MARK: Find matches

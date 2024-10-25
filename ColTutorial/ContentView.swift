@@ -24,10 +24,20 @@ struct ContentView: View {
                         scene.left()
                     }
                 })
-            VStack {
-                Spacer()
-                Text("Score: \(scene.score)")
-                Text("Level: \(scene.level)")                
+            HStack {
+                VStack {
+                    Spacer()
+                    Text("Score: \(scene.score)")
+                    Text("Level: \(scene.level)")
+                }
+                Text(" ")
+                VStack {
+                    Spacer()
+                    Text("Next:")
+                    Image(scene.board.nextGems[2].rawValue)
+                    Image(scene.board.nextGems[1].rawValue)
+                    Image(scene.board.nextGems[0].rawValue)
+                }
             }
             .foregroundStyle(.white)
             .padding()

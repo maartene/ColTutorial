@@ -452,4 +452,29 @@ final class BoardTests: XCTestCase {
 
         XCTAssertGreaterThanOrEqual(board.updateDelay, 0)
     }
+    
+    // MARK: next gems
+    func test_aBoard_hasThree_nextGems() {
+        let board = Board()
+        XCTAssertEqual(board.nextGems.count, 3)
+    }
+    
+    func test_theNextGems_areNeverThreeOfTheSameType() {
+        let board = Board()
+        let nextGems = board.nextGems
+        
+        XCTAssertFalse(
+            nextGems[0] == nextGems[1] && nextGems[1] == nextGems[2]
+        )
+    }
+    
+    func test_whenSpawningNewGems_theNextGemsAreUsed() {
+        let board = Board()
+        
+        let updatedBoard = board.update()
+        
+        XCTAssertEqual(updatedBoard.gems[Vector(x: 3, y: 13)], board.nextGems[0])
+        XCTAssertEqual(updatedBoard.gems[Vector(x: 3, y: 14)], board.nextGems[1])
+        XCTAssertEqual(updatedBoard.gems[Vector(x: 3, y: 15)], board.nextGems[2])
+    }
 }

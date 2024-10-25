@@ -12,7 +12,7 @@ struct ContentView: View {
     @StateObject var scene = GameScene(size: CGSize(width: 375, height: 667))
     var body: some View {
         ZStack {
-            SpriteView(scene: scene, options: [.ignoresSiblingOrder], debugOptions: [.showsDrawCount, .showsFPS, .showsNodeCount])
+            SpriteView(scene: scene, options: [.ignoresSiblingOrder])
                 .ignoresSafeArea()
                 .onTapGesture {
                     scene.cycle()

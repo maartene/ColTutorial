@@ -47,6 +47,8 @@ struct Board {
         return max(0, result)
     }
     
+    var nextGems: [Gem] = [Gem.blue, Gem.red, Gem.blue]
+    
     subscript(coord: Vector) -> Gem? {
         gems[coord]
     }
@@ -177,12 +179,30 @@ struct Board {
     }
     
     private mutating func spawnNewGems() {
-        gems[Vector(x: 3, y: 13)] = Gem.allCases.randomElement()!
-        gems[Vector(x: 3, y: 14)] = Gem.allCases.randomElement()!
-        gems[Vector(x: 3, y: 15)] = Gem.allCases.randomElement()!
+        gems[Vector(x: 3, y: 13)] = nextGems[0]
+        gems[Vector(x: 3, y: 14)] = nextGems[1]
+        gems[Vector(x: 3, y: 15)] = nextGems[2]
+        
+        nextGems = randomGems()
         
         fallingStackBottom = Vector(x: 3, y: 13)
         spawnCount += 1
+    }
+    
+    private func randomGems() -> [Gem] {
+        var nextGems = [
+            Gem.allCases.randomElement()!,
+            Gem.allCases.randomElement()!,
+            Gem.allCases.randomElement()!
+        ]
+        
+        if nextGems[0] == nextGems[1] && nextGems[1] == nextGems[2] {
+            while nextGems[1] == nextGems[0] {
+                nextGems[1] = Gem.allCases.randomElement()!
+            }
+        }
+        
+        return nextGems
     }
     
     // MARK: Find matches

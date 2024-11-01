@@ -4,7 +4,11 @@ In this series we'll recreate the classic game 'Columns' using Swift and SpriteK
 
 The YouTube series can be found [here](https://www.youtube.com/playlist?list=PLhUrOtMlcKDD1qNt_sPZ5Gt772Fo5bDqn).
 
-Download the graphic assets here: https://www.thedreamweb.eu/resources/ColTutorial/Gems.zip
+Download the graphic/audio assets here:
+
+- Particles: https://www.thedreamweb.eu/resources/ColTutorial/Particles.zip
+- Gems: https://www.thedreamweb.eu/resources/ColTutorial/Gems.zip
+- SFX: https://www.thedreamweb.eu/resources/ColTutorial/SFX.zip
 
 ## Licensed assets
 

@@ -30,6 +30,10 @@ final class GameScene: SKScene, ObservableObject {
         scaleMode = .aspectFit
         backgroundColor = .black
         
+        let silentEffect = SKAudioNode(fileNamed: "silent.wav")
+        silentEffect.run(.sequence([.play(), .removeFromParent()]))
+        rootNode.addChild(silentEffect)
+        
         addChild(rootNode)
         
         let field = SKShapeNode(rect: CGRect(x: 0, y: 0, width: spriteSize * Double(board.colCount), height: spriteSize *  Double(board.rowCount)))
@@ -101,6 +105,11 @@ final class GameScene: SKScene, ObservableObject {
                 gib.run(.sequence([.wait(forDuration: 0.5), .removeFromParent()]))
                 rootNode.addChild(gib)
             }
+            
+            let sfx = SKAudioNode(fileNamed: "\(removedGem.gem).wav")
+            sfx.autoplayLooped = false
+            sfx.run(.sequence([.play(), .wait(forDuration: 0.5), .removeFromParent()]))
+            rootNode.addChild(sfx)
         }
     }
 }

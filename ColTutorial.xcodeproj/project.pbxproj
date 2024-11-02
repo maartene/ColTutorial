@@ -25,6 +25,12 @@
 		DE9DE08E2C43F22100A778F5 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE08D2C43F22100A778F5 /* Vector.swift */; };
 		DE9DE0902C43FA5F00A778F5 /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9DE08F2C43FA5F00A778F5 /* BoardTests.swift */; };
 		DEC6B45C2C7B56DA003C9D7A /* DetectMatchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC6B45B2C7B56DA003C9D7A /* DetectMatchesTests.swift */; };
+		DED662452CD4D79500CDFC3B /* blue.wav in Resources */ = {isa = PBXBuildFile; fileRef = DED662442CD4D79500CDFC3B /* blue.wav */; };
+		DED6624A2CD4D8B400CDFC3B /* green.wav in Resources */ = {isa = PBXBuildFile; fileRef = DED662462CD4D8B400CDFC3B /* green.wav */; };
+		DED6624B2CD4D8B400CDFC3B /* purple.wav in Resources */ = {isa = PBXBuildFile; fileRef = DED662472CD4D8B400CDFC3B /* purple.wav */; };
+		DED6624C2CD4D8B400CDFC3B /* red.wav in Resources */ = {isa = PBXBuildFile; fileRef = DED662482CD4D8B400CDFC3B /* red.wav */; };
+		DED6624D2CD4D8B400CDFC3B /* yellow.wav in Resources */ = {isa = PBXBuildFile; fileRef = DED662492CD4D8B400CDFC3B /* yellow.wav */; };
+		DED6624F2CD4D9B400CDFC3B /* silent.wav in Resources */ = {isa = PBXBuildFile; fileRef = DED6624E2CD4D9B400CDFC3B /* silent.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +72,12 @@
 		DE9DE08D2C43F22100A778F5 /* Vector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
 		DE9DE08F2C43FA5F00A778F5 /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		DEC6B45B2C7B56DA003C9D7A /* DetectMatchesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectMatchesTests.swift; sourceTree = "<group>"; };
+		DED662442CD4D79500CDFC3B /* blue.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = blue.wav; sourceTree = "<group>"; };
+		DED662462CD4D8B400CDFC3B /* green.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = green.wav; sourceTree = "<group>"; };
+		DED662472CD4D8B400CDFC3B /* purple.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = purple.wav; sourceTree = "<group>"; };
+		DED662482CD4D8B400CDFC3B /* red.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = red.wav; sourceTree = "<group>"; };
+		DED662492CD4D8B400CDFC3B /* yellow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = yellow.wav; sourceTree = "<group>"; };
+		DED6624E2CD4D9B400CDFC3B /* silent.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = silent.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,11 +128,17 @@
 		DE9DE05E2C43EE8800A778F5 /* ColTutorial */ = {
 			isa = PBXGroup;
 			children = (
+				DED6624E2CD4D9B400CDFC3B /* silent.wav */,
+				DED662442CD4D79500CDFC3B /* blue.wav */,
 				DE430B6B2C8990F1004A7E21 /* blue.sks */,
 				DE430B6C2C8990F1004A7E21 /* green.sks */,
+				DED662462CD4D8B400CDFC3B /* green.wav */,
 				DE430B6D2C8990F1004A7E21 /* purple.sks */,
+				DED662472CD4D8B400CDFC3B /* purple.wav */,
 				DE430B6A2C8990F1004A7E21 /* red.sks */,
+				DED662482CD4D8B400CDFC3B /* red.wav */,
 				DE430B6E2C8990F1004A7E21 /* yellow.sks */,
+				DED662492CD4D8B400CDFC3B /* yellow.wav */,
 				DE9DE05F2C43EE8800A778F5 /* ColTutorialApp.swift */,
 				DE9DE0612C43EE8800A778F5 /* ContentView.swift */,
 				DE9DE0632C43EE8900A778F5 /* Assets.xcassets */,
@@ -266,11 +284,17 @@
 			files = (
 				DE9DE0672C43EE8900A778F5 /* Preview Assets.xcassets in Resources */,
 				DE430B722C8990F1004A7E21 /* purple.sks in Resources */,
+				DED662452CD4D79500CDFC3B /* blue.wav in Resources */,
+				DED6624F2CD4D9B400CDFC3B /* silent.wav in Resources */,
 				DE430B6F2C8990F1004A7E21 /* red.sks in Resources */,
 				DE430B702C8990F1004A7E21 /* blue.sks in Resources */,
 				DE430B712C8990F1004A7E21 /* green.sks in Resources */,
 				DE430B732C8990F1004A7E21 /* yellow.sks in Resources */,
 				DE9DE0642C43EE8900A778F5 /* Assets.xcassets in Resources */,
+				DED6624A2CD4D8B400CDFC3B /* green.wav in Resources */,
+				DED6624B2CD4D8B400CDFC3B /* purple.wav in Resources */,
+				DED6624C2CD4D8B400CDFC3B /* red.wav in Resources */,
+				DED6624D2CD4D8B400CDFC3B /* yellow.wav in Resources */,
 				DE961F6D2C898AFA007FCDA6 /* gemVanishes.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
